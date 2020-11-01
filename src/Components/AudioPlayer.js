@@ -44,9 +44,9 @@ const enhance = compose(
         const options = Object.assign({}, this.props.options, defaultOptions)
 
         const waveSurfer = WaveSurfer.create(options)
-
+        
         waveSurfer.load(this.props.audioFile, this.props.peaks)
-
+        
         waveSurfer.on('ready', () => {
           isReady = true
           if (this.props.playing) waveSurfer.play()
@@ -65,12 +65,13 @@ const enhance = compose(
       },
 
       componentWillReceiveProps(nextProps) {
+
         const waveSurfer = Object.assign(this.state.waveSurfer)
         let isNewSource = false
 
         if (this.props.audioFile !== nextProps.audioFile) {
           this.setState({isReady: false})
-          waveSurfer.load(this.props.audioFile)
+          waveSurfer.load(nextProps.audioFile)
           isNewSource = true
         }
 

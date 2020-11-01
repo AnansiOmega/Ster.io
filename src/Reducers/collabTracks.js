@@ -6,7 +6,9 @@ const collabTracksReducer = (state=initialState, action) => {
             return [...action.payload]
         case 'SELECT_TRACK':
             const selectedTrack = state.filter(track => track.id === parseInt(action.payload))
-                return selectedTrack
+            return selectedTrack
+        case 'LOGOUT_USER':
+            return []
         default:
         return state
     }

@@ -7,6 +7,8 @@ const SongsReducer = (state=initialState, action) => {
         case 'SELECT_SONG':
             const selectedSong = state.filter(song => song.id === parseInt(action.payload))
             return selectedSong
+        case 'LOGOUT_USER':
+            return []
         default:
         return state
     }

@@ -5,6 +5,8 @@ import { fetchSongsSuccess } from '../Actions/songs'
 import TrackCard from '../Components/trackCard'
 import { Tab } from 'semantic-ui-react'
 import SongCard from '../Components/songCard'
+// import AudioPlayer from '../Components/showAudio'
+import AudioPlayer from '../Components/AudioPlayer'
 
 class SongCont extends React.Component {
 
@@ -39,10 +41,13 @@ const panes = [
     { menuItem: 'Tab 1', render: () => <Tab.Pane>{this.renderTracks()}</Tab.Pane> },
     { menuItem: 'Tab 2', render: () => <Tab.Pane>{this.renderSongs()}</Tab.Pane> }
   ]
-  
   const tabs = () => <Tab panes={panes} />
+  let audioLink = `http://localhost:3000${this.props.audio}`
         return(
-           <div>{tabs()}</div>
+            <div>
+                {this.props.audio ? <AudioPlayer audioFile={audioLink} playing={this.props.toggle} /> : null}
+                {tabs()}
+            </div>
         )
     }
 }
@@ -50,7 +55,9 @@ const panes = [
 const mapStateToProps = (state) => {
     return {
         tracks: state.collabTracks,
-        songs: state.songs
+        songs: state.songs,
+        audio: state.audio,
+        toggle: state.audioToggle
     }
 }
 
