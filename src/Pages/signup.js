@@ -1,11 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchUserSuccess } from '../Actions/auth'
+import { Button, Form, TextArea } from 'semantic-ui-react'
 
 class Signup extends React.Component{
 state = {
     username: '',
-    password: ''
+    password: '',
+    fname: '',
+    lname: '',
+    age: null,
+    email: '',
+    bio: ''
 }
 
 
@@ -55,13 +61,23 @@ handleSubmit = (e) => {
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
-                <label name='username'>Username:</label>
+            <Form onSubmit={this.handleSubmit}>
+            <label name='username'>Username</label>
                 <input onChange={this.handleChange} type="text" name="username" value={this.state.username}></input>
-                <label>Password:</label>
+                <label>Password</label>
                 <input onChange={this.handleChange} type="text" name="password" value={this.state.password}></input>
-                <input type="submit" value="Submit"></input>
-            </form>
+                <label>First Name</label>
+                <input onChange={this.handleChange} type="text" name="fname" value={this.state.fname}></input>
+                <label>Last Name</label>
+                <input onChange={this.handleChange} type="text" name="lname" value={this.state.lname}></input>
+                <label>Age</label>
+                <input onChange={this.handleChange} type="number" name="age" value={this.state.age}></input>
+                <label>Email</label>
+                <input onChange={this.handleChange} type="text" name="email" value={this.state.email}></input>
+                <label>Bio</label>
+                <TextArea onChange={this.handleChange} name="bio" value={this.state.bio}/>
+                <Button type='submit'>Signup</Button>
+            </Form>
         )
     }
 }

@@ -11,3 +11,9 @@ export const toggleAudio = (payload) => {
         payload
     }
 }
+
+export const skipBackward = (payload) => {
+    return {
+        type: 'SKIP_BACKWARD'
+    }
+}

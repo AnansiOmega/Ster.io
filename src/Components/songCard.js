@@ -1,20 +1,13 @@
 import React from 'react'
-import { Card } from 'semantic-ui-react'
+import { List, Button, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { selectAudio } from '../Actions/audio'
+import { toggleAudio } from '../Actions/audio'
+import { skipBackward } from '../Actions/audio'
 
 
 class songCard extends React.Component {
-  state = {
-      audioPlay: false
-  }
-      
-    renderAudio = () => {
-        return this.props.song.collab_tracks.map(track => {
-              const audioLink = `http://localhost:3000/${track.track}`
-              const audio = new Audio(audioLink)
-              audio.play()
-        })
-    }
 
     handleAudio = () => {
         this.setState({
@@ -28,36 +21,40 @@ class songCard extends React.Component {
 
         })
     }
-  
 
     render(){
-        const songCollab = `/home/songCollab/${this.props.song.id}`
+        const songCollabLink = `/home/songCollab/${this.props.song.id}`
+        const myStyle = this.props.song.id === this.props.selectedTrack ? 'rgba(0,166,124,0.5)' : null
       return(
-        <Card.Group>
-        <Card>
-          <Card.Content>
-            <Card.Header>{this.props.song.title}</Card.Header>
-            <Card.Meta>{this.props.song.genre}</Card.Meta>
-            <Card.Description>
-              {this.renderInstruments()}
-            </Card.Description>
-          </Card.Content>
-          <div>
-          <button onClick={this.handleAudio}>
-            <span>Play Audio</span>
-          </button>
-          {this.state.audioPlay ? this.renderAudio() : null}
-          </div>
-          <Link to={songCollab} >
-        <button>
-          <span>Collaborate</span>
-        </button>
-        </Link>
-          </Card>
-        </Card.Group>
+        <List.Item onClick={() => this.props.selectAudio(this.props.song)} style={{backgroundColor: myStyle}}>
+        <List.Content>
+          <List.Header style={{float: 'left'}} align='left'>{this.props.song.title}</List.Header>
+          <List.Header style={{float: 'left'}} align='left'><Button onClick={this.props.skipBackward } circular icon='stop'></Button><Button icon='play' circular onClick={() => this.props.toggleAudio()}></Button></List.Header>
+          <List.Header style={{float: 'middle', marginRight:'90px'}} align='middle'>{this.props.song.genre}</List.Header>
+          <List.Content style={{float: 'middle', marginRight:'85px'}} align='middle'>
+            <Link to={songCollabLink}>
+              <Button circular >Collaborate</Button>
+            </Link>
+          </List.Content>
+          <List.Content style={{float: 'right'}} align='right'>{this.renderInstruments()}</List.Content>
+        </List.Content>
+      </List.Item>
       )
     }
   }
 
+  const mapStateToProps = (state) => {
+    return {
+      selectedTrack: state.selectAudio
+    }
+  }
 
-export default songCard
+
+  const mapDispatchToProps = {
+    selectAudio,
+    toggleAudio,
+    skipBackward
+  }
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(songCard)

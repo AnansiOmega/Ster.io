@@ -49,7 +49,14 @@ const enhance = compose(
         
         waveSurfer.on('ready', () => {
           isReady = true
-          if (this.props.playing) waveSurfer.play()
+          if (this.props.playing){
+            waveSurfer.play()
+          }
+
+          // if (this.props.reset){
+          //   waveSurfer.stop()
+          // }
+          
           this.setState({waveSurfer, isReady})
         })
 
@@ -65,7 +72,6 @@ const enhance = compose(
       },
 
       componentWillReceiveProps(nextProps) {
-
         const waveSurfer = Object.assign(this.state.waveSurfer)
         let isNewSource = false
 
@@ -77,6 +83,9 @@ const enhance = compose(
 
         if (!isNewSource && (this.props.playing !== nextProps.playing || waveSurfer.isPlaying() !== nextProps.playing))
           nextProps.playing ? waveSurfer.play() : waveSurfer.pause()
+
+        if (!isNewSource && (this.props.reset !== nextProps.reset || waveSurfer.isPlaying() !== nextProps.playing))
+          nextProps.reset ? waveSurfer.stop() : waveSurfer.play()
       },
     },
   ),
@@ -97,6 +106,7 @@ AudioPlayer.propTypes = {
   playing: PropTypes.bool,
   peaks: PropTypes.array,
   loader: PropTypes.any,
+  reset: PropTypes.bool
 }
 
 export default AudioPlayer

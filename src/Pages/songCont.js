@@ -5,8 +5,8 @@ import { fetchSongsSuccess } from '../Actions/songs'
 import TrackCard from '../Components/trackCard'
 import { Tab } from 'semantic-ui-react'
 import SongCard from '../Components/songCard'
-// import AudioPlayer from '../Components/showAudio'
-import AudioPlayer from '../Components/AudioPlayer'
+// import AudioPlayer from '../Components/AudioPlayer'
+import { List } from 'semantic-ui-react'
 
 class SongCont extends React.Component {
 
@@ -25,27 +25,49 @@ class SongCont extends React.Component {
 
     renderTracks = () => {
         return this.props.tracks.map(track => {
-            return <TrackCard track={track} />
+            return <List animated celled size='tiny'>
+                <TrackCard track={track} /></List>
         })
     }
 
     renderSongs = () => {
         return this.props.songs.map(song => {
-            return <SongCard song={song}/>
+            return <List animated celled size='tiny'>
+                <SongCard song={song}/></List>
         })
     }
 
+    // renderAudioPlayers = () => {
+    //     return this.props.audio.map(link => {
+    //         let audioLink = `http://localhost:3000${link}`
+    //         return <AudioPlayer audioFile={audioLink} playing={this.props.toggle} />
+    //     })
+    // }
+
+    
     render(){
-        
 const panes = [
-    { menuItem: 'Tab 1', render: () => <Tab.Pane>{this.renderTracks()}</Tab.Pane> },
-    { menuItem: 'Tab 2', render: () => <Tab.Pane>{this.renderSongs()}</Tab.Pane> }
+    { menuItem: 'Tracks', render: () => <Tab.Pane>
+        <div>
+            <div className='list-header' align='left'>Title</div>
+            <div className='list-header' align='middle'>Genre</div>
+            <div className='list-header' align='right'>Instrument</div>
+            {this.renderTracks()}
+        </div>
+        </Tab.Pane> },
+    { menuItem: 'Songs', render: () => <Tab.Pane>
+        <div>
+            <div className='list-header' align='left'>Title</div>
+            <div className='list-header' align='middle'>Genre</div>
+            <div className='list-header' align='right'>Instrument</div>
+            {this.renderSongs()}
+        </div>
+        </Tab.Pane> }
   ]
   const tabs = () => <Tab panes={panes} />
-  let audioLink = `http://localhost:3000${this.props.audio}`
         return(
             <div>
-                {this.props.audio ? <AudioPlayer audioFile={audioLink} playing={this.props.toggle} /> : null}
+                {/* {this.renderAudioPlayers()} */}
                 {tabs()}
             </div>
         )

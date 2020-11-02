@@ -15,21 +15,20 @@ class NavBar extends React.Component {
     render(){
         return(
             <Menu>
-            <Menu.Item header>Ster.io</Menu.Item>
+              <Link to='/home'>
+                <Menu.Item header>Ster.io</Menu.Item>
+              </Link>
             <Link to='/login'>
-            <Menu.Item
-              name='logout'
-              onClick={this.handleLogout}
-            />
+              <Menu.Item
+                name='logout'
+                onClick={this.handleLogout}
+              />
             </Link>
             <Link to='/home/upload'>
-            <Menu.Item
-              name='upload'
-            />
+              <Menu.Item
+                name='upload'
+              />
             </Link>
-            <Menu.Item
-              name='locations'
-            />
           </Menu>
         )
     }

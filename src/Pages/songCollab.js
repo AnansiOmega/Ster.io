@@ -3,6 +3,7 @@ import SongCard from '../Components/songCard'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { selectSong } from '../Actions/songs'
+import { Button, Form } from 'semantic-ui-react'
 
 
 class SongCollab extends React.Component {
@@ -17,18 +18,13 @@ class SongCollab extends React.Component {
 
     componentDidMount(){
         this.props.selectSong(this.props.match.params.id)
-        const collabIds = this.props.song[0].collab_tracks.map(track => track.id)
-        this.setState({
-            collabIds
-        })
+        setTimeout( () => {
+            const collabIds = this.props.song[0].collab_tracks.map(track => track.id)
+            this.setState({
+                collabIds
+            })
+        }, 100)
     }
-
-    // componentDidUpdate(prevProps) {
-    //     debugger
-    //     // if (this.props.userID !== prevProps.userID) {
-    //     //   this.fetchData(this.props.userID);
-    //     // }
-    //   }
 
     renderSongs = () => {
         return this.props.song.map(song => {
@@ -71,28 +67,30 @@ class SongCollab extends React.Component {
         })
     }
 
-
     render(){
         return(
             <div>
             <div>
                 {this.renderSongs()}
             </div>
-            <form onSubmit={this.handleSubmit}>
-            <label>Title:</label>
-            <input onChange={this.handleChange} type="text" name="title" value={this.state.title}></input>
-            <label>Genre:</label>
-            <input onChange={this.handleChange} type="text" name="genre" value={this.state.genre}></input>
-            <label>Instrument:</label>
-            <input onChange={this.handleChange} type="text" name="instrument" value={this.state.instrument}></input>
-            <label>File:</label>
-            <input
-                    type="file"
-                    accept=".mp3,audio/*"
-                    onChange={this.handleFileUpload}
-                />
-            <input type="submit" value="Submit"></input>
-        </form>
+            <Form className='form' onSubmit={this.handleSubmit}>
+                <Form.Field>
+                    <label>Title</label>
+                    <input onChange={this.handleChange} type="text" name="title" value={this.state.title}/>
+                </Form.Field>
+                <Form.Field>
+                    <label>Genre</label>
+                    <input onChange={this.handleChange} type="text" name="genre" value={this.state.genre}/>
+                    <label>Instrument</label>
+                    <input onChange={this.handleChange} type="text" name="instrument" value={this.state.instrument}/>
+                    <input
+                        type="file"
+                        accept=".mp3,audio/*"
+                        onChange={this.handleFileUpload}
+                        />
+                </Form.Field>
+                <Button type='submit'>Submit</Button>
+            </Form>
         </div>
         )
     }

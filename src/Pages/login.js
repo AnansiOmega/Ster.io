@@ -1,6 +1,8 @@
 import React from 'react'
 import { fetchUserSuccess } from '../Actions/auth'
 import { connect } from 'react-redux'
+import { Button, Form } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
 
 class Login extends React.Component{
@@ -45,13 +47,16 @@ handleSubmit = (e) => {
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit}>
                 <label name='username'>Username:</label>
                 <input onChange={this.handleChange} type="text" name="username" value={this.state.username}></input>
                 <label>Password:</label>
                 <input onChange={this.handleChange} type="text" name="password" value={this.state.password}></input>
-                <input type="submit" value="Submit"></input>
-            </form>
+                <Button type='submit'>Login</Button>
+                <Link to='/signup'>
+                <Button>Sign up</Button>
+                </Link>
+            </Form>
         )
     }
 }

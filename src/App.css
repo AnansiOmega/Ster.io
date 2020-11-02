@@ -1,0 +1,14 @@
+.list-header {
+    display: inline-block;
+    width: 33%;
+    font-size: 20px;
+    /* text-align: center; */
+    /* height: 50%; */
+    position: relative;
+    margin-left: 4px;
+}
+
+.form {
+    margin: 20px;
+    padding: 10%;
+}

@@ -3,7 +3,9 @@ import collabTracks from './collabTracks'
 import songs from './songs'
 import auth from './auth'
 import audio from './audio'
+import audioControls from './audioControls'
 import audioToggle from './audioToggle'
+import selectAudio from './selectAudio'
 
 
 
@@ -12,5 +14,7 @@ export default combineReducers({
     collabTracks,
     songs,
     audio,
-    audioToggle
+    audioToggle,
+    audioControls,
+    selectAudio
 })
