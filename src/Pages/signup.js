@@ -62,7 +62,7 @@ handleSubmit = (e) => {
     render(){
         return(
             <Form onSubmit={this.handleSubmit}>
-            <label name='username'>Username</label>
+                <label name='username'>Username</label>
                 <input onChange={this.handleChange} type="text" name="username" value={this.state.username}></input>
                 <label>Password</label>
                 <input onChange={this.handleChange} type="text" name="password" value={this.state.password}></input>

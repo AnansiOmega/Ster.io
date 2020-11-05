@@ -6,7 +6,6 @@ import SongCont from './songCont'
 import Upload from './upload'
 import SongUpload from './songUpload'
 import SongCollab from './songCollab'
-import AudioPlayer from '../Components/AudioPlayer'
 
 
 class Explore extends React.Component {
@@ -34,19 +33,9 @@ class Explore extends React.Component {
         }
     }
 
-    renderAudioPlayers = () => {
-        return this.props.audio.map(link => {
-            let audioLink = `http://localhost:3000${link}`
-            let options = { waveColor: 'rgba(0,166,124,0.5)'}
-            return <AudioPlayer audioFile={audioLink} playing={this.props.toggle} reset={this.props.controls} options={options}/>
-        })
-    }
-
-
     render() {
         return (
             <div>
-                {this.renderAudioPlayers()}
                 <Switch>
                     <Route exact path='/home' component={SongCont}></Route>
                     <Route path='/home/upload' component={Upload} />

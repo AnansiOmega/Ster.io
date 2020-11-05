@@ -6,6 +6,7 @@ import audio from './audio'
 import audioControls from './audioControls'
 import audioToggle from './audioToggle'
 import selectAudio from './selectAudio'
+import user from './user'
 
 
 
@@ -16,5 +17,6 @@ export default combineReducers({
     audio,
     audioToggle,
     audioControls,
-    selectAudio
+    selectAudio,
+    user
 })

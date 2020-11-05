@@ -53,9 +53,7 @@ const enhance = compose(
             waveSurfer.play()
           }
 
-          // if (this.props.reset){
-          //   waveSurfer.stop()
-          // }
+
           
           this.setState({waveSurfer, isReady})
         })

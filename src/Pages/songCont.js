@@ -26,14 +26,14 @@ class SongCont extends React.Component {
     renderTracks = () => {
         return this.props.tracks.map(track => {
             return <List animated celled size='tiny'>
-                <TrackCard track={track} /></List>
+                <TrackCard track={track} key={track.id} /></List>
         })
     }
 
     renderSongs = () => {
         return this.props.songs.map(song => {
             return <List animated celled size='tiny'>
-                <SongCard song={song}/></List>
+                <SongCard song={song} key={song.id}/></List>
         })
     }
 
