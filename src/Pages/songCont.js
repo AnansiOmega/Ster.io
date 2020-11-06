@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchCollabsSuccess } from '../Actions/collabTracks'
 import { fetchSongsSuccess } from '../Actions/songs'
+
 import TrackCard from '../Components/trackCard'
 import { Tab } from 'semantic-ui-react'
 import SongCard from '../Components/songCard'
-// import AudioPlayer from '../Components/AudioPlayer'
 import { List } from 'semantic-ui-react'
 
 class SongCont extends React.Component {
@@ -26,14 +26,14 @@ class SongCont extends React.Component {
     renderTracks = () => {
         return this.props.tracks.map(track => {
             return <List animated celled size='tiny'>
-                <TrackCard track={track} /></List>
+                <TrackCard track={track} key={track.id} /></List>
         })
     }
 
     renderSongs = () => {
         return this.props.songs.map(song => {
             return <List animated celled size='tiny'>
-                <SongCard song={song}/></List>
+                <SongCard song={song} key={song.id}/></List>
         })
     }
 
@@ -67,7 +67,6 @@ const panes = [
   const tabs = () => <Tab panes={panes} />
         return(
             <div>
-                {/* {this.renderAudioPlayers()} */}
                 {tabs()}
             </div>
         )

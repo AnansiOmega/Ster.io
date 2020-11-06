@@ -9,35 +9,43 @@ import { skipBackward } from '../Actions/audio'
 
 class songCard extends React.Component {
 
-    handleAudio = () => {
-        this.setState({
-            audioPlay: !this.state.audioPlay
-        })
-    }
-
+    // handleAudio = () => {
+    //     this.setState({
+    //         audioPlay: !this.state.audioPlay
+    //     })
+    // }
+    
     renderInstruments = () => {
-        return this.props.song.collab_tracks.map(track => {
-        return <p>{track.instrument}</p>
-
-        })
+       return this.props.song.collab_tracks.map((track, index) => {
+        const userInfo = this.props.song.users[index]
+        const userId = track.user ? track.user.id : userInfo.id
+        let userProfileLink = `/users/${userId}`
+        return <Link to={userProfileLink}>
+                 <p style={{lineHeight: '1.5'}}>{track.instrument}: {track.user ? track.user.username : userInfo.username}</p>
+               </Link>
+      })
     }
+
 
     render(){
         const songCollabLink = `/home/songCollab/${this.props.song.id}`
         const myStyle = this.props.song.id === this.props.selectedTrack ? 'rgba(0,166,124,0.5)' : null
       return(
         <List.Item onClick={() => this.props.selectAudio(this.props.song)} style={{backgroundColor: myStyle}}>
-        <List.Content>
-          <List.Header style={{float: 'left'}} align='left'>{this.props.song.title}</List.Header>
-          <List.Header style={{float: 'left'}} align='left'><Button onClick={this.props.skipBackward } circular icon='stop'></Button><Button icon='play' circular onClick={() => this.props.toggleAudio()}></Button></List.Header>
-          <List.Header style={{float: 'middle', marginRight:'90px'}} align='middle'>{this.props.song.genre}</List.Header>
+          <div className="col" style={{display: 'flex', justifyContent: 'flex-start', flexBasis: '100%'}}>
+            <List.Header style={{float: 'left'}}>{this.props.song.title}</List.Header>
+          </div>
+          <List.Header style={{textAlign: 'center'}}>{this.props.song.genre}</List.Header>
+          <List.Content style={{float: 'right', marginBottom: '5px'}}>{this.renderInstruments()}</List.Content>
+          <List.Header style={{float: 'left'}}>
+            <Button onClick={this.props.skipBackward } circular icon='stop'></Button>
+            <Button icon='play' circular onClick={this.props.toggleAudio}></Button>
+          </List.Header>
           <List.Content style={{float: 'middle', marginRight:'85px'}} align='middle'>
             <Link to={songCollabLink}>
               <Button circular >Collaborate</Button>
             </Link>
           </List.Content>
-          <List.Content style={{float: 'right'}} align='right'>{this.renderInstruments()}</List.Content>
-        </List.Content>
       </List.Item>
       )
     }

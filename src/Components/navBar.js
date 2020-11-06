@@ -13,6 +13,7 @@ class NavBar extends React.Component {
 }
 
     render(){
+      const link = `/users/${this.props.auth.id}`
         return(
             <Menu>
               <Link to='/home'>
@@ -26,7 +27,12 @@ class NavBar extends React.Component {
             </Link>
             <Link to='/home/upload'>
               <Menu.Item
-                name='upload'
+                name='Upload'
+              />
+            </Link>
+            <Link to={link}>
+              <Menu.Item
+              name='My Profile'
               />
             </Link>
           </Menu>
@@ -34,8 +40,14 @@ class NavBar extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth
+  }
+}
+
 const mapDispatchToProps = {
   logoutUser
 }
 
-export default connect(null, mapDispatchToProps)(NavBar)
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
