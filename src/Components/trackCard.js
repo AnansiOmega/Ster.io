@@ -2,13 +2,13 @@ import React from 'react'
 import { List, Button, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { selectAudio } from '../Actions/audio'
-import { toggleAudio } from '../Actions/audio'
-import { skipBackward } from '../Actions/audio'
+import { selectAudio, toggleAudio, skipBackward } from '../Actions/audio'
+
 
 class TrackCard extends React.Component {
 
 render(){
+  const deleteButton = this.props.handleDelete ? <Button onClick={() => this.props.handleDelete(this.props.track.id)} circular icon='delete' style={{float: 'right'}}></Button> : null
   const uploadSongLink = `/home/songUpload/${this.props.track.id}`
   const myStyle = this.props.track.id === this.props.selectedTrack ? 'rgba(0,166,124,0.5)' : null
   const userProfileLink = `/users/${this.props.track.user.id}`
@@ -31,6 +31,7 @@ render(){
         <Link to={uploadSongLink}>
           <Button circular >Collaborate</Button>
         </Link>
+        {deleteButton}
       </List.Content>
     </List.Item>
       )

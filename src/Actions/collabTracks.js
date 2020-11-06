@@ -12,3 +12,10 @@ export const selectTrack = (payload) => {
         payload
     }
 }
+
+export const deleteCollabSuccess = (payload) => {
+    return {
+        type: 'DELETE_COLLAB_SUCCESS',
+        payload
+    }
+}

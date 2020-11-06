@@ -8,31 +8,52 @@ import NavBar from './Components/navBar'
 import { Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import AudioPlayer from './Components/AudioPlayer'
+import {  Button, Icon } from 'semantic-ui-react'
 
 
-function App(props) {
+class App extends React.Component {
 
- const renderAudioPlayers = () => {
-    return props.audio.map(link => {
-        let audioLink = `http://localhost:3000${link}`
-        let options = { waveColor: 'rgba(0,166,124,0.5)'}
-        return <AudioPlayer audioFile={audioLink} playing={props.toggle} reset={props.controls} options={options}/>
+  state = {
+    squash: false
+  }
+
+  renderAudioPlayers = () => {
+    return this.props.audio.map(link => {
+      let audioLink = `http://localhost:3000${link}`
+      // const colors = { violin: 'red'}
+      // let options = 
+      let options = { waveColor: 'rgba(0,166,124,0.5)'}
+      return <AudioPlayer audioFile={audioLink} playing={this.props.toggle} reset={this.props.controls} options={options} squash={this.state.squash}/>
+      })
+  }
+
+  squashToggle = () => {
+    this.setState({
+      squash: !this.state.squash
     })
+  }
+
+  render(){
+    const myStyle = this.state.squash ? { position: 'relative', height: '100px'} : null
+    const icon = this.state.squash ? 'angle down' : 'angle up'
+    return (
+      <div className="App">
+        <NavBar/>
+        <div style={myStyle}>
+        {this.renderAudioPlayers()}
+        </div>
+        <Button style={{float: 'right', top: '100px'}} circular><Icon name={icon} onClick={this.squashToggle}/></Button>
+        <Switch>
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/signup' component={Signup} />
+          <Route path='/home' component={Home} />
+          <Route path='/users/:id' component={UserHomePage} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
-  return (
-    <div className="App">
-      <NavBar/>
-      {renderAudioPlayers()}
-      <Switch>
-        <Route exact path='/login' component={Login} />
-        <Route exact path='/signup' component={Signup} />
-        <Route path='/home' component={Home} />
-        <Route path='/users/:id' component={UserHomePage} />
-      </Switch>
-    </div>
-  );
-}
 
 
 const mapStateToProps = (state) => {

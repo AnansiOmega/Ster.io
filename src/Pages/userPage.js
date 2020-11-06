@@ -8,6 +8,9 @@ import SongCard from '../Components/songCard'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css'
 import '../App.css'
+import DefaultProfilePic from '../images/masterpiece-stallions-for-prince-ignas-2.png'
+import axios from 'axios'
+import { deleteCollabSuccess } from '../Actions/collabTracks'
 
 
 
@@ -17,6 +20,7 @@ state = {
     username: '',
     email: '',
     bio: '',
+    image: '',
     open: false
 }
 
@@ -55,11 +59,23 @@ state = {
         }
     }
 
+    handleDelete = (id) => {
+        let alert = this.props.user.songs.length === 1 ? `is 1 song` : `are ${this.props.user.songs.length} songs` 
+        if(window.confirm(`There ${alert} using this track, are you you sure you want to delete this track?`)){
+            fetch(`http://localhost:3000/collab_tracks/${id}`, {method: 'DELETE'})
+            .then(resp => resp.json())
+            .then(collabTrack => {
+              this.props.deleteCollabSuccess(collabTrack)
+            })
+        }
+    }
+
+      
 
     renderTracks = () => {
         return this.props.user.collab_tracks.map(track => {
             return <List animated celled size='tiny'>
-                <TrackCard track={track} /></List>
+                <TrackCard track={track} handleDelete={this.handleDelete}/></List>
         })
     }
 
@@ -79,25 +95,33 @@ state = {
         })
     }
 
+    handleFileUpload = (e) => {
+        this.setState({
+            image: e.target.files[0]
+        })
+    }
+    
+
     handleSubmit = (e) => {
         e.preventDefault()
         this.setState({
             open: !this.state.open
         })
 
-        const reqObj = {
-            method: 'PATCH',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({user: this.state})
-        }
+        const formData = new FormData()
 
-        fetch(`http://localhost:3000/users/${this.props.auth.id}`, reqObj)
-        .then(resp => resp.json())
-        .then(user => {
-            this.props.fetchedUser(user)
+        for (const property in this.state) {
+            formData.append(
+                property, this.state[property]
+            )
+        }
+        
+
+    axios.patch(`http://localhost:3000/users/${this.props.auth.id}`, formData)
+    .then(data => {
+            this.props.fetchedUser(data.data)
         })
+    
     }
 
     handleUrlChange = () => {
@@ -136,14 +160,15 @@ state = {
                   const { fname, lname, age, username, email, bio } = this.props.user
                   const tabs = () => <Tab panes={panes} />
                   const button = this.props.auth.id === this.props.user.id ? <button><Icon name='edit'/></button> : null
+                  const imageLink =  this.props.user.image ? `http://localhost:3000${this.props.user.image}` : DefaultProfilePic
                   return(
                       <Grid celled='internally'>
             <Grid.Row>
-              <Grid.Column width={4}>
-              <Image circular src='https://cms.qz.com/wp-content/uploads/2019/03/shutterstock_editorial_5881911a_huge.jpg?quality=75&strip=all&w=1200&h=900&crop=1' />
+              <Grid.Column width={3}>
+              <Image style={{height: '300px'}} circular src={imageLink} />
               <div style={{width: '300px'}}>
                 <Popup open={this.state.open} onClose={!this.state.open} trigger={button} position="right center">
-                    <div style={{ width: '250px'}}>
+                    <div style={{ width: '250px', height: '450px'}}>
                     <Form onSubmit={this.handleSubmit} style={{width: '250px', height: '400px'}}>
                 <label name='username'>Username</label>
                 <input onChange={this.handleChange} type="text" name="username" value={this.state.username}></input>
@@ -151,6 +176,11 @@ state = {
                 <input onChange={this.handleChange} type="text" name="email" value={this.state.email}></input>
                 <label>Bio</label>
                 <TextArea style={{height: '200px'}} onChange={this.handleChange} name="bio" value={this.state.bio}/>
+                <input
+                        type="file"
+                        accept="image/jpeg"
+                        onChange={this.handleFileUpload}
+                        />
                 <Button type='submit'>Update</Button>
                 </Form>
                     </div>
@@ -184,7 +214,8 @@ const mapStateToProps = (state) => {
 }
 const mapDispatchToProps = {
     currentUser,
-    fetchedUser
+    fetchedUser,
+    deleteCollabSuccess 
 }
 
 

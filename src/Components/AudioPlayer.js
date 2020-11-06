@@ -42,9 +42,8 @@ const enhance = compose(
         let isReady = this.state.isReady
         const defaultOptions = {container: `#${CONTAINER_ID}`}
         const options = Object.assign({}, this.props.options, defaultOptions)
-
         const waveSurfer = WaveSurfer.create(options)
-        
+       
         waveSurfer.load(this.props.audioFile, this.props.peaks)
         
         waveSurfer.on('ready', () => {
@@ -69,6 +68,15 @@ const enhance = compose(
         this.setState({waveSurfer: null, isReady: false})
       },
 
+      componentDidUpdate(){
+        const waveSurfer = Object.assign(this.state.waveSurfer)
+
+        waveSurfer.mediaContainer.childNodes.forEach(wave => {
+          wave.style.overflow = this.props.squash ? 'overlay' : 'auto hidden'
+          wave.style.position = this.props.squash ?  'unset' : 'relative'
+        })
+      },
+
       componentWillReceiveProps(nextProps) {
         const waveSurfer = Object.assign(this.state.waveSurfer)
         let isNewSource = false
@@ -84,6 +92,8 @@ const enhance = compose(
 
         if (!isNewSource && (this.props.reset !== nextProps.reset || waveSurfer.isPlaying() !== nextProps.playing))
           nextProps.reset ? waveSurfer.stop() : waveSurfer.play()
+
+       
       },
     },
   ),
@@ -104,7 +114,8 @@ AudioPlayer.propTypes = {
   playing: PropTypes.bool,
   peaks: PropTypes.array,
   loader: PropTypes.any,
-  reset: PropTypes.bool
+  reset: PropTypes.bool,
+  squash: PropTypes.bool
 }
 
 export default AudioPlayer
