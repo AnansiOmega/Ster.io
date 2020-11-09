@@ -11,9 +11,10 @@ class SongUpload extends React.Component {
         title: '',
         genre: '',
         instrument: '',
-        user_id: parseInt(this.props.auth.id),
+        user_id: this.props.auth.id,
         original_collab_track_id: this.props.match.params.id,
-        track: ''
+        track: '',
+        errors: ''
     }
 
     componentDidMount(){
@@ -39,7 +40,12 @@ class SongUpload extends React.Component {
         
         axios.post("http://localhost:3000/collab_tracks", formData)
         .then(data => {
-
+            if(data.data.errors){
+                this.setState({
+                    errors: data.data.errors
+                })
+            return
+        }
             formData.append('collab_track_id', data.data.id)
 
             axios.post("http://localhost:3000/songs", formData)
@@ -62,22 +68,24 @@ class SongUpload extends React.Component {
         })
     }
 
-        //     <form onSubmit={this.handleSubmit}>
-        //     <label>Title:</label>
-        //     <input onChange={this.handleChange} type="text" name="title" value={this.state.title}></input>
-        //     <label>Genre:</label>
-        //     <input onChange={this.handleChange} type="text" name="genre" value={this.state.genre}></input>
-        //     <label>Instrument:</label>
-        //     <input onChange={this.handleChange} type="text" name="instrument" value={this.state.instrument}></input>
-        //     <label>File:</label>
-        //     <input
-        //             type="file"
-        //             accept=".mp3,audio/*"
-        //             onChange={this.handleFileUpload}
-        //         />
-        //     <input type="submit" value="Submit"></input>
-        // </form>
+
+
+    renderErros = () => {
+        if(this.state.errors){
+            alert(this.state.errors)
+            this.setState({
+                title: '',
+                genre: '',
+                instrument: '',
+                track: '',
+                errors: ''
+            })
+        }
+    }
+
+
     render(){
+        this.renderErros()
         return(
             <div>
             <div>

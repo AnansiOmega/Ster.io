@@ -1,6 +1,6 @@
 import React from 'react'
 import { List, Button, Icon } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { selectAudio } from '../Actions/audio'
 import { toggleAudio } from '../Actions/audio'
@@ -8,21 +8,22 @@ import { skipBackward } from '../Actions/audio'
 
 
 class songCard extends React.Component {
-
-    // handleAudio = () => {
-    //     this.setState({
-    //         audioPlay: !this.state.audioPlay
-    //     })
-    // }
     
     renderInstruments = () => {
        return this.props.song.collab_tracks.map((track, index) => {
         const userInfo = this.props.song.users[index]
         const userId = track.user ? track.user.id : userInfo.id
         let userProfileLink = `/users/${userId}`
-        return <Link to={userProfileLink}>
-                 <p style={{lineHeight: '1.5'}}>{track.instrument}: {track.user ? track.user.username : userInfo.username}</p>
-               </Link>
+        const deleteButton = this.props.handleDeleteAssociation ?
+         <Button onClick={() => this.props.handleDeleteAssociation(this.props.track.id)} circular icon='delete' style={{float: 'right'}}></Button>
+          : 
+          null
+          // debugger
+        return <div>
+                  <Link to={userProfileLink}>
+                    <p style={{lineHeight: '1.5'}}>{track.instrument}: {track.user ? track.user.username : userInfo.username}</p>
+                  </Link>
+                </div>
       })
     }
 
@@ -65,4 +66,4 @@ class songCard extends React.Component {
   }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(songCard)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(songCard))

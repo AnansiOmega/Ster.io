@@ -2,7 +2,7 @@ import React  from 'react'
 import { connect } from 'react-redux'
 import { currentUser } from '../Actions/auth'
 import { fetchedUser } from '../Actions/user'
-import { Tab, List, Icon, Grid, Image, Button, Form, TextArea } from 'semantic-ui-react'
+import { Tab, List, Icon, Grid, Image, Button, Form, TextArea, Embed } from 'semantic-ui-react'
 import TrackCard from '../Components/trackCard'
 import SongCard from '../Components/songCard'
 import Popup from 'reactjs-popup';
@@ -21,7 +21,8 @@ state = {
     email: '',
     bio: '',
     image: '',
-    open: false
+    open: false,
+    errors: ''
 }
 
     componentDidMount() {
@@ -70,7 +71,9 @@ state = {
         }
     }
 
-      
+    handleDeleteAssociation = () => {
+        debugger
+    }
 
     renderTracks = () => {
         return this.props.user.collab_tracks.map(track => {
@@ -82,7 +85,7 @@ state = {
     renderSongs = () => {
         return this.props.user.songs.map(song => {
             return <List animated celled size='tiny'>
-                <SongCard song={song}/></List>
+                <SongCard song={song} handleDeleteAssociation={this.handleDeleteAssociation}/></List>
         })
     }
 
@@ -117,24 +120,39 @@ state = {
         }
         
 
-    axios.patch(`http://localhost:3000/users/${this.props.auth.id}`, formData)
-    .then(data => {
-            this.props.fetchedUser(data.data)
-        })
+        axios.patch(`http://localhost:3000/users/${this.props.auth.id}`, formData)
+        .then(data => {
+            if(data.data.errors){
+                this.setState({
+                    errors: data.data.errors
+                })
+            } else {
+                this.props.fetchedUser(data.data)
+            }
+            })
     
     }
 
-    handleUrlChange = () => {
-        this.props.history.listen((location) => {
-            const url = location.pathname.slice(0, -1)
-            if(url === '/users/'){
-                window.location.reload()
-            }
-        })
+    // handleUrlChange = () => {
+    //     this.props.history.listen((location) => {
+    //         const url = location.pathname.slice(0, -1)
+    //         if(url === '/users/'){
+    //             this.forceUpdate()
+    //         }
+    //     })
+    // }
+
+    renderErrors = () => {
+        if(this.state.errors){
+            alert(this.state.errors)
+            this.setState({ errors: '' })
+        }
     }
 
+
             render(){
-                this.handleUrlChange()
+                this.renderErrors()
+                // this.handleUrlChange()
                 const panes = [
                     { menuItem: 'Tracks', render: () => <Tab.Pane>
                         <div>

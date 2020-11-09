@@ -9,6 +9,9 @@ const SongsReducer = (state=initialState, action) => {
             return selectedSong
         case 'DELETE_COLLAB_SUCCESS':
             const songs = state.map(song => {
+                if(!song || !song.collab_tracks){
+                    return
+                }
                return song.collab_tracks.filter(track => {
                    return track.id !== action.payload.id
                     })

@@ -4,16 +4,18 @@ import { fetchUserSuccess } from '../Actions/auth'
 import { Button, Form, TextArea } from 'semantic-ui-react'
 import axios from 'axios'
 
+
 class Signup extends React.Component{
 state = {
     username: '',
     password: '',
     fname: '',
     lname: '',
-    age: null,
+    age: '',
     email: '',
     bio: '',
-    image: ''
+    image: '',
+    errors: ''
 }
 
 
@@ -40,14 +42,19 @@ handleSubmit = (e) => {
         )
     }
 
-    
     axios.post("http://localhost:3000/users", formData)
     .then(data => {
+        if(data.data.errors){
+            this.setState({
+                errors: data.data.errors
+            })
+        return
+        }
          axios.post('http://localhost:3000/auth', formData)
             .then(data => {
                 if(data.data.error){
                     this.setState({
-                        error: data.error
+                        error: data.data.error
                     })
                 } else {
                     localStorage.setItem('myToken', data.data.token)
@@ -56,45 +63,28 @@ handleSubmit = (e) => {
                 }
             })
     })
-    // })
 }
-    // const reqObj = {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-type': 'application/json'
-    //     },
-    //     body: JSON.stringify({user: this.state})
-    // }
 
-    // fetch('http://localhost:3000/users', reqObj)
-    // .then(resp => resp.json())
-    // .then(user => {
-    //         const reqObj = {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(this.state)
-    //         }
-        
-    //         fetch('http://localhost:3000/auth', reqObj)
-    //         .then(resp => resp.json())
-    //         .then(user => {
-    //             if(user.error){
-    //                 this.setState({
-    //                     error: user.error
-    //                 })
-    //             } else {
-    //                 localStorage.setItem('myToken', user.token)
-    //                 this.props.fetchUserSuccess(user)
-    //                 this.props.history.push('/home')
-    //             }
-    //         })
-    // })
-// }
 
+    renderErros = () => {
+        if(this.state.errors){
+            alert(this.state.errors)
+            this.setState({
+                username: '',
+                password: '',
+                fname: '',
+                lname: '',
+                age: '',
+                email: '',
+                bio: '',
+                image: '',
+                errors: ''
+            })
+        }
+    }
 
     render() {
+        this.renderErros()
         return(
             <Form onSubmit={this.handleSubmit}>
                 <label name='username'>Username</label>

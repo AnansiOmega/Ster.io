@@ -9,8 +9,9 @@ class Upload extends React.Component {
         instrument: '',
         title: '',
         genre: '',
-        user_id: parseInt(this.props.auth.id),
-        track: ''
+        user_id: this.props.auth.id,
+        track: '',
+        errors: ''
     }
 
     handleSubmit = (e) => {
@@ -23,10 +24,15 @@ class Upload extends React.Component {
                 property, this.state[property]
             )
         }
-        console.log(formData)
         
         axios.post("http://localhost:3000/collab_tracks", formData)
         .then(data => {
+            if(data.data.errors){
+                this.setState({
+                    errors: data.data.errors
+                })
+            return
+        }
             this.props.history.push('/home')
         })
     }
@@ -42,8 +48,25 @@ class Upload extends React.Component {
             track: e.target.files[0]
         })
     }
+
+
+    renderErros = () => {
+        if(this.state.errors){
+            alert(this.state.errors)
+            this.setState({
+                instrument: '',
+                title: '',
+                genre: '',
+                user_id: this.props.auth.id,
+                track: '',
+                errors: ''
+            })
+        }
+    }
+
    
     render(){
+        this.renderErros()
         return(
             <Form className='form' onSubmit={this.handleSubmit}>
                 <Form.Field>
