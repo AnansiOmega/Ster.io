@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, Button, Icon } from 'semantic-ui-react'
+import { List, Button } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { selectAudio } from '../Actions/audio'
@@ -12,7 +12,6 @@ class songCard extends React.Component {
     renderInstruments = () => {
        return this.props.song.collab_tracks.map((track, index) => {
         const userInfo = this.props.song.users[index]
-        console.log(track.user, 'track', userInfo.id, 'userInfo')
         // const userId = track.user ? track.user.id : userInfo.id
         const userId = userInfo.id
         let userProfileLink = `/users/${userId}`
