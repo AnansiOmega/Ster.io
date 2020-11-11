@@ -47,6 +47,8 @@ handleSubmit = (e) => {
 
     render(){
         return(
+            <div>
+            <h4 style={{color: 'red'}}>{this.state.error}</h4>
             <Form onSubmit={this.handleSubmit}>
                 <label name='username'>Username:</label>
                 <input onChange={this.handleChange} type="text" name="username" value={this.state.username}></input>
@@ -57,6 +59,7 @@ handleSubmit = (e) => {
                 <Button>Sign up</Button>
                 </Link>
             </Form>
+            </div>
         )
     }
 }

@@ -11,9 +11,10 @@ class SongCollab extends React.Component {
         title: '',
         genre: '',
         instrument: '',
-        user_id: parseInt(this.props.auth.id),
+        user_id: this.props.auth.id,
         track: '',
-        collabIds: []
+        collabIds: [],
+        errors: []
     }
 
     componentDidMount(){
@@ -28,7 +29,8 @@ class SongCollab extends React.Component {
 
     renderSongs = () => {
         return this.props.song.map(song => {
-            return <SongCard song={song}/>
+            let className = 'song-collab-track'
+            return <SongCard song={song} className={className}/>
         })
     }
 
@@ -46,11 +48,16 @@ class SongCollab extends React.Component {
 
         axios.post("http://localhost:3000/collab_tracks", formData)
             .then(data => {
+                if(data.data.errors){
+                    this.setState({
+                        errors: data.data.errors
+                    })
+                return
+            }
                 formData.append('collab_track_id', data.data.id)
                 axios.post("http://localhost:3000/songCollab", formData)
                     .then(data => {
                         this.props.history.push('/home')
-
                     })
             })
     }
@@ -67,6 +74,16 @@ class SongCollab extends React.Component {
         })
     }
 
+    renderErrors = () => {
+        if(this.state.errors){
+            return this.state.errors.map(error => error.split(' ')[0])
+        } else {
+            return []
+        }
+    }
+
+
+
     render(){
         return(
             <div>
@@ -74,21 +91,49 @@ class SongCollab extends React.Component {
                 {this.renderSongs()}
             </div>
             <Form className='form' onSubmit={this.handleSubmit}>
-                <Form.Field>
-                    <label>Title</label>
-                    <input onChange={this.handleChange} type="text" name="title" value={this.state.title}/>
-                </Form.Field>
-                <Form.Field>
-                    <label>Genre</label>
-                    <input onChange={this.handleChange} type="text" name="genre" value={this.state.genre}/>
-                    <label>Instrument</label>
-                    <input onChange={this.handleChange} type="text" name="instrument" value={this.state.instrument}/>
+            <Form.Input
+                error={this.renderErrors().includes('Title') ? "Title can't be blank" : false }
+                fluid
+                label='Title'
+                type='text'
+                name='title'
+                value={this.state.title}
+                onChange={this.handleChange}
+            />
+            <Form.Input
+                error={this.renderErrors().includes('Genre') ? "Genre can't be blank" : false }
+                fluid
+                label='Genre'
+                type='text'
+                name='genre'
+                value={this.state.genre}
+                onChange={this.handleChange}
+            />
+            <Form.Input
+                error={this.renderErrors().includes('Instrument') ? "Instrument can't be blank" : false }
+                fluid
+                label='Instrument'
+                type='text'
+                name='instrument'
+                value={this.state.instrument}
+                onChange={this.handleChange}
+            />
+                {/* <Form.Field> */}
+                    {/* <label>Title</label> */}
+                    {/* <input onChange={this.handleChange} type="text" name="title" value={this.state.title}/> */}
+                {/* </Form.Field> */}
+                {/* <Form.Field> */}
+                    {/* <label>Genre</label> */}
+                    {/* <input onChange={this.handleChange} type="text" name="genre" value={this.state.genre}/> */}
+                    {/* <label>Instrument</label> */}
+                    {/* <input onChange={this.handleChange} type="text" name="instrument" value={this.state.instrument}/> */}
+                    {this.renderErrors().includes('Track') ? <h4 style={{color: 'red'}}>Track cannot be empty</h4> : null }
                     <input
                         type="file"
                         accept=".mp3,audio/*"
                         onChange={this.handleFileUpload}
                         />
-                </Form.Field>
+                {/* </Form.Field> */}
                 <Button type='submit'>Submit</Button>
             </Form>
         </div>

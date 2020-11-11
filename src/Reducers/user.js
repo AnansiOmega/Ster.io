@@ -38,6 +38,7 @@ const userReducer = (state=initialState, action) => {
             return userInfo
         case 'DELETE_COLLAB_SUCCESS':
             const collab_tracks = state.collab_tracks.filter(track => track.id !== action.payload.id)
+
             const songCollabTracks = state.songs.map(song => {
                 return song.collab_tracks.filter(track => {
                     return track.id !== action.payload.id
@@ -53,7 +54,8 @@ const userReducer = (state=initialState, action) => {
             const songs = state.songs.map((song, index) => {
                 const tracks = songCollabTracks[index]
                 const users = songUsers[index]
-                if(users.some( user => user.id === state.id)){
+                
+                if(users.map(user => user.id).includes(state.id)){
                     return {
                         ...song,
                         collab_tracks: [...tracks],
@@ -63,8 +65,21 @@ const userReducer = (state=initialState, action) => {
             })
 
         let newUserInfo =  {...state, collab_tracks, songs: songs.filter(song => song) }
-        
         return newUserInfo
+        case 'DELETE_ASSOCIATION_SUCCESS':
+            let updatedSongs = state.songs.map(song => {
+                if(song.id === action.payload.song.id){
+                    song = action.payload.song
+                    if(song.users.find(user => user.id === state.id)){
+                        return song
+                    }
+                } else {
+                    return song
+                }
+            })
+
+            let usersUpdatedSongs = {...state, songs: updatedSongs.filter(song => song)}
+            return usersUpdatedSongs
         case 'LOGOUT_USER':
             return {}
         default:

@@ -10,6 +10,13 @@ const collabTracksReducer = (state=initialState, action) => {
         case 'DELETE_COLLAB_SUCCESS':
             const collabTracks = state.filter(track => track.id !== parseInt(action.payload.id))
             return collabTracks
+        case 'SELECT_AUDIO':
+            // debugger
+            if(action.payload.collab_tracks){
+                return state
+            }
+            let track = state.length === 0 ? [action.payload] : state
+            return track
         case 'LOGOUT_USER':
             return []
         default:

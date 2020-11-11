@@ -37,14 +37,6 @@ class SongCont extends React.Component {
         })
     }
 
-    // renderAudioPlayers = () => {
-    //     return this.props.audio.map(link => {
-    //         let audioLink = `http://localhost:3000${link}`
-    //         return <AudioPlayer audioFile={audioLink} playing={this.props.toggle} />
-    //     })
-    // }
-
-    
     render(){
 const panes = [
     { menuItem: 'Tracks', render: () => <Tab.Pane>

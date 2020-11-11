@@ -66,41 +66,98 @@ handleSubmit = (e) => {
 }
 
 
-    renderErros = () => {
+    renderErrors = () => {
         if(this.state.errors){
-            alert(this.state.errors)
-            this.setState({
-                username: '',
-                password: '',
-                fname: '',
-                lname: '',
-                age: '',
-                email: '',
-                bio: '',
-                image: '',
-                errors: ''
-            })
+            return this.state.errors.map(error => error.split(' ')[0])
+        } else {
+            return []
         }
     }
 
     render() {
-        this.renderErros()
         return(
             <Form onSubmit={this.handleSubmit}>
-                <label name='username'>Username</label>
-                <input onChange={this.handleChange} type="text" name="username" value={this.state.username}></input>
-                <label>Password</label>
-                <input onChange={this.handleChange} type="text" name="password" value={this.state.password}></input>
-                <label>First Name</label>
-                <input onChange={this.handleChange} type="text" name="fname" value={this.state.fname}></input>
-                <label>Last Name</label>
-                <input onChange={this.handleChange} type="text" name="lname" value={this.state.lname}></input>
-                <label>Age</label>
-                <input onChange={this.handleChange} type="number" name="age" value={this.state.age}></input>
-                <label>Email</label>
-                <input onChange={this.handleChange} type="text" name="email" value={this.state.email}></input>
-                <label>Bio</label>
-                <TextArea onChange={this.handleChange} name="bio" value={this.state.bio}/>
+            <Form.Input
+                error={this.renderErrors().includes('Username') ? "Username must be valid" : false }
+                fluid
+                label='Username'
+                type='text'
+                name='username'
+                value={this.state.username}
+                onChange={this.handleChange}
+            />
+            <Form.Input
+                error={this.renderErrors().includes('Password') ? "Password can't be blank" : false }
+                fluid
+                label='Password'
+                type='text'
+                name='password'
+                value={this.state.password}
+                onChange={this.handleChange}
+            />
+            <Form.Input
+                error={this.renderErrors().includes('Fname') ? "First name can't be blank" : false  }
+                fluid
+                label='First Name'
+                type='text'
+                name='fname'
+                value={this.state.fname}
+                onChange={this.handleChange}
+            />
+            <Form.Input
+                error={this.renderErrors().includes('Lname') ? "Last name can't be blank" : false  }
+                fluid
+                label='Last Name'
+                type='text'
+                name='lname'
+                value={this.state.lname}
+                onChange={this.handleChange}
+            />
+            <Form.Input
+                fluid
+                label='Age'
+                type='number'
+                name='age'
+                value={this.state.age}
+                onChange={this.handleChange}
+            />
+            <Form.Input
+                error={this.renderErrors().includes('Email') ? "Email must be valid" : false  }
+                fluid
+                label='Email'
+                type='text'
+                name='email'
+                value={this.state.email}
+                onChange={this.handleChange}
+            />
+            <Form.TextArea
+                fluid
+                label='Bio'
+                name='bio'
+                value={this.state.bio}
+                onChange={this.handleChange}
+            />
+            {/* <Form
+                error={this.state.errors.includes('username') ? this.state.errors['username'] : false }
+                label='Image Upload'
+                fluid
+                type='file'
+                accept='image/jpeg'
+                onChange={this.handleFileUpload}
+            /> */}
+                {/* <input onChange={this.handleChange} type="text" name="username" value={this.state.username}></input> */}
+                {/* <label>Password</label> */}
+                {/* <input onChange={this.handleChange} type="text" name="password" value={this.state.password}></input> */}
+                {/* <label>First Name</label> */}
+                {/* <input onChange={this.handleChange} type="text" name="fname" value={this.state.fname}></input> */}
+                {/* <label>Last Name</label> */}
+                {/* <input onChange={this.handleChange} type="text" name="lname" value={this.state.lname}></input> */}
+                {/* <label>Age</label> */}
+                {/* <input onChange={this.handleChange} type="number" name="age" value={this.state.age}></input> */}
+                {/* <label>Email</label> */}
+                {/* <input onChange={this.handleChange} type="text" name="email" value={this.state.email}></input> */}
+                {/* <label>Bio</label> */}
+                {/* <TextArea onChange={this.handleChange} name="bio" value={this.state.bio}/> */}
                 <label>Profile Image</label>
                 <input
                         type="file"

@@ -17,6 +17,18 @@ const SongsReducer = (state=initialState, action) => {
                     })
                 })
             return songs
+        case 'DELETE_ASSOCIATION_SUCCESS':
+            let updatedSongs = state.map(song => {
+                if(song.id === action.payload.song.id){
+                   return song = action.payload.song
+                } else {
+                    return song
+                }
+            })
+            return updatedSongs
+        case 'SELECT_AUDIO':
+            let song = state.length === 0 && !!action.payload.collab_tracks ? [action.payload] : state
+            return song
         case 'LOGOUT_USER':
             return []
         default:

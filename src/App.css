@@ -25,3 +25,28 @@
      position: unset !important;
      overflow: overlay !important;
 }
+
+div.item.song-upload-track{
+    height: 100px;
+    border-style: solid;
+    margin-top: 50px;
+    
+}
+
+div.item.song-collab-track {
+    height: 100px;
+    border-style: solid;
+    margin-top: 60px;
+}
+
+/* dotted;}
+p.dashed {border-style: dashed;}
+p.solid {border-style: solid;}
+p.double {border-style: double;}
+p.groove {border-style: groove;}
+p.ridge {border-style: ridge;}
+p.inset {border-style: inset;}
+p.outset {border-style: outset;}
+p.none {border-style: none;}
+p.hidden {border-style: hidden;}
+p.mix {border-style: dotted dashed solid double;} */

@@ -2,6 +2,8 @@ import React  from 'react'
 import { connect } from 'react-redux'
 import { currentUser } from '../Actions/auth'
 import { fetchedUser } from '../Actions/user'
+import { deleteCollabSuccess } from '../Actions/collabTracks'
+import { deleteAssociationSuccess } from '../Actions/songs'
 import { Tab, List, Icon, Grid, Image, Button, Form, TextArea, Embed } from 'semantic-ui-react'
 import TrackCard from '../Components/trackCard'
 import SongCard from '../Components/songCard'
@@ -10,7 +12,6 @@ import 'reactjs-popup/dist/index.css'
 import '../App.css'
 import DefaultProfilePic from '../images/masterpiece-stallions-for-prince-ignas-2.png'
 import axios from 'axios'
-import { deleteCollabSuccess } from '../Actions/collabTracks'
 
 
 
@@ -60,10 +61,27 @@ state = {
         }
     }
 
-    handleDelete = (id) => {
-        let alert = this.props.user.songs.length === 1 ? `is 1 song` : `are ${this.props.user.songs.length} songs` 
+    componentDidUpdate(prevProps){
+        if(this.props.match.url !== prevProps.match.url){
+            const userPageId = this.props.match.params.id
+            fetch(`http://localhost:3000/users/${userPageId}`)
+            .then(resp => resp.json())
+            .then(user => {
+                this.props.fetchedUser(user)
+                this.setState({
+                    fetchedUser: true,
+                    username: this.props.user.username,
+                    email: this.props.user.email,
+                    bio: this.props.user.bio
+                })
+            })
+        }
+    }
+
+    handleDelete = (track) => {
+        let alert = track.songs.length === 1 ? `is 1 song` : `are ${this.props.user.songs.length} songs` 
         if(window.confirm(`There ${alert} using this track, are you you sure you want to delete this track?`)){
-            fetch(`http://localhost:3000/collab_tracks/${id}`, {method: 'DELETE'})
+            fetch(`http://localhost:3000/collab_tracks/${track.id}`, {method: 'DELETE'})
             .then(resp => resp.json())
             .then(collabTrack => {
               this.props.deleteCollabSuccess(collabTrack)
@@ -71,8 +89,19 @@ state = {
         }
     }
 
-    handleDeleteAssociation = () => {
-        debugger
+    handleDeleteAssociation = (collab_track_id, song_id) => {
+        const reqObj = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({collab_track_id, song_id})
+        }
+        fetch('http://localhost:3000/song_collab', reqObj)
+        .then(resp => resp.json())
+        .then(data => {
+            this.props.deleteAssociationSuccess(data)
+        })
     }
 
     renderTracks = () => {
@@ -133,15 +162,6 @@ state = {
     
     }
 
-    // handleUrlChange = () => {
-    //     this.props.history.listen((location) => {
-    //         const url = location.pathname.slice(0, -1)
-    //         if(url === '/users/'){
-    //             this.forceUpdate()
-    //         }
-    //     })
-    // }
-
     renderErrors = () => {
         if(this.state.errors){
             alert(this.state.errors)
@@ -152,7 +172,6 @@ state = {
 
             render(){
                 this.renderErrors()
-                // this.handleUrlChange()
                 const panes = [
                     { menuItem: 'Tracks', render: () => <Tab.Pane>
                         <div>
@@ -233,7 +252,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     currentUser,
     fetchedUser,
-    deleteCollabSuccess 
+    deleteCollabSuccess,
+    deleteAssociationSuccess
 }
 
 

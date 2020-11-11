@@ -8,12 +8,13 @@ import { selectAudio, toggleAudio, skipBackward } from '../Actions/audio'
 class TrackCard extends React.Component {
 
 render(){
-  const deleteButton = this.props.handleDelete ? <Button onClick={() => this.props.handleDelete(this.props.track.id)} circular icon='delete' style={{float: 'right'}}></Button> : null
+  const deleteButton = this.props.handleDelete && this.props.track.user.id === this.props.auth.id ? <Button onClick={() => this.props.handleDelete(this.props.track)} circular icon='delete' style={{float: 'right'}}></Button> : null
   const uploadSongLink = `/home/songUpload/${this.props.track.id}`
   const myStyle = this.props.track.id === this.props.selectedTrack ? 'rgba(0,166,124,0.5)' : null
   const userProfileLink = `/users/${this.props.track.user.id}`
+  let className = this.props.className || null
   return(
-    <List.Item onClick={() => this.props.selectAudio(this.props.track)} style={{ backgroundColor: myStyle }}>
+    <List.Item className={className} onClick={() => this.props.selectAudio(this.props.track)} style={{ backgroundColor: myStyle }}>
       <div className="col" style={{ display: 'flex', justifyContent: 'flex-start', flexBasis: '100%' }}>
         <List.Content style={{ float: 'left' }} align='left'>{this.props.track.title}</List.Content>
       </div>
@@ -40,7 +41,8 @@ render(){
 
   const mapStateToProps = (state) => {
     return {
-      selectedTrack: state.selectAudio
+      selectedTrack: state.selectAudio,
+      auth: state.auth
     }
   }
 

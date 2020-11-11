@@ -11,11 +11,14 @@ class Upload extends React.Component {
         genre: '',
         user_id: this.props.auth.id,
         track: '',
-        errors: ''
+        errors: []
     }
 
     handleSubmit = (e) => {
         e.preventDefault()
+        if(!this.state.user_id){
+            this.setState({ user_id: this.props.auth.id})
+        }
 
         const formData = new FormData()
 
@@ -50,40 +53,61 @@ class Upload extends React.Component {
     }
 
 
-    renderErros = () => {
+    renderErrors = () => {
         if(this.state.errors){
-            alert(this.state.errors)
-            this.setState({
-                instrument: '',
-                title: '',
-                genre: '',
-                user_id: this.props.auth.id,
-                track: '',
-                errors: ''
-            })
+            return this.state.errors.map(error => error.split(' ')[0])
+        } else {
+            return []
         }
     }
 
    
     render(){
-        this.renderErros()
         return(
             <Form className='form' onSubmit={this.handleSubmit}>
-                <Form.Field>
-                    <label>Title</label>
-                    <input onChange={this.handleChange} type="text" name="title" value={this.state.title}/>
-                </Form.Field>
-                <Form.Field>
-                    <label>Genre</label>
-                    <input onChange={this.handleChange} type="text" name="genre" value={this.state.genre}/>
-                    <label>Instrument</label>
-                    <input onChange={this.handleChange} type="text" name="instrument" value={this.state.instrument}/>
+            <Form.Input
+                error={this.renderErrors().includes('Title') ? "Title can't be blank" : false }
+                fluid
+                label='Title'
+                type='text'
+                name='title'
+                value={this.state.title}
+                onChange={this.handleChange}
+            />
+            <Form.Input
+                error={this.renderErrors().includes('Genre') ? "Genre can't be blank" : false }
+                fluid
+                label='Genre'
+                type='text'
+                name='genre'
+                value={this.state.genre}
+                onChange={this.handleChange}
+            />
+            <Form.Input
+                error={this.renderErrors().includes('Instrument') ? "Instrument can't be blank" : false }
+                fluid
+                label='Instrument'
+                type='text'
+                name='instrument'
+                value={this.state.instrument}
+                onChange={this.handleChange}
+            />
+                {/* <Form.Field> */}
+                    {/* <label>Title</label> */}
+                    {/* <input onChange={this.handleChange} type="text" name="title" value={this.state.title}/> */}
+                {/* </Form.Field> */}
+                {/* <Form.Field> */}
+                    {/* <label>Genre</label> */}
+                    {/* <input onChange={this.handleChange} type="text" name="genre" value={this.state.genre}/> */}
+                    {/* <label>Instrument</label> */}
+                    {/* <input onChange={this.handleChange} type="text" name="instrument" value={this.state.instrument}/> */}
+                    {this.renderErrors().includes('Track') ? <h4 style={{color: 'red'}}>Track cannot be empty</h4> : null }
                     <input
                         type="file"
                         accept=".mp3,audio/*"
                         onChange={this.handleFileUpload}
                         />
-                </Form.Field>
+                {/* </Form.Field> */}
                 <Button type='submit'>Submit</Button>
             </Form>
         )

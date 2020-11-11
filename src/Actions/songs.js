@@ -11,3 +11,10 @@ export const selectSong = (payload) => {
         payload
     }
 }
+
+export const deleteAssociationSuccess = (payload) => {
+    return {
+        type: 'DELETE_ASSOCIATION_SUCCESS',
+        payload
+    }
+}
