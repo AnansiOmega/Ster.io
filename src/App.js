@@ -8,7 +8,7 @@ import NavBar from './Components/navBar'
 import { Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import AudioPlayer from './Components/AudioPlayer'
-import {  Button, Icon } from 'semantic-ui-react'
+import {  Button } from 'semantic-ui-react'
 
 
 class App extends React.Component {
@@ -20,9 +20,7 @@ class App extends React.Component {
   renderAudioPlayers = () => {
     return this.props.audio.map(link => {
       let audioLink = `http://localhost:3000${link}`
-      // const colors = { violin: 'red'}
-      // let options = 
-      let options = { waveColor: 'rgba(0,166,124,0.5)'}
+      let options = { waveColor: 'rgba(0,166,124,0.5)' }
       return <AudioPlayer audioFile={audioLink} playing={this.props.toggle} reset={this.props.controls} options={options} squash={this.state.squash}/>
       })
   }
@@ -42,7 +40,7 @@ class App extends React.Component {
         <div style={myStyle}>
         {this.renderAudioPlayers()}
         </div>
-        <Button style={{float: 'right', top: '100px'}} circular><Icon name={icon} onClick={this.squashToggle}/></Button>
+        <Button style={{float: 'right', top: '100px'}} icon={icon} circular onClick={this.squashToggle}></Button>
         <Switch>
           <Route exact path='/login' component={Login} />
           <Route exact path='/signup' component={Signup} />

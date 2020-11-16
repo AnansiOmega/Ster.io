@@ -4,12 +4,11 @@ import { currentUser } from '../Actions/auth'
 import { fetchedUser } from '../Actions/user'
 import { deleteCollabSuccess } from '../Actions/collabTracks'
 import { deleteAssociationSuccess } from '../Actions/songs'
-import { Tab, List, Icon, Grid, Image, Button, Form, TextArea, Embed } from 'semantic-ui-react'
+import { Tab, List, Icon, Grid, Image, Button, Form, TextArea } from 'semantic-ui-react'
 import TrackCard from '../Components/trackCard'
 import SongCard from '../Components/songCard'
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css'
-import '../App.css'
 import DefaultProfilePic from '../images/masterpiece-stallions-for-prince-ignas-2.png'
 import axios from 'axios'
 
@@ -171,7 +170,6 @@ state = {
 
 
             render(){
-                this.renderErrors()
                 const panes = [
                     { menuItem: 'Tracks', render: () => <Tab.Pane>
                         <div>
@@ -200,35 +198,35 @@ state = {
                   const imageLink =  this.props.user.image ? `http://localhost:3000${this.props.user.image}` : DefaultProfilePic
                   return(
                       <Grid celled='internally'>
-            <Grid.Row>
-              <Grid.Column width={3}>
-              <Image style={{height: '300px'}} circular src={imageLink} />
-              <div style={{width: '300px'}}>
-                <Popup open={this.state.open} onClose={!this.state.open} trigger={button} position="right center">
-                    <div style={{ width: '250px', height: '450px'}}>
-                    <Form onSubmit={this.handleSubmit} style={{width: '250px', height: '400px'}}>
-                <label name='username'>Username</label>
-                <input onChange={this.handleChange} type="text" name="username" value={this.state.username}></input>
-                <label>Email</label>
-                <input onChange={this.handleChange} type="text" name="email" value={this.state.email}></input>
-                <label>Bio</label>
-                <TextArea style={{height: '200px'}} onChange={this.handleChange} name="bio" value={this.state.bio}/>
-                <input
-                        type="file"
-                        accept="image/jpeg"
-                        onChange={this.handleFileUpload}
-                        />
-                <Button type='submit'>Update</Button>
-                </Form>
-                    </div>
-                </Popup>
-                </div>
-                <h3>Username: {username}</h3>
-                <h4>Name: {fname} {lname}</h4>
-                <h4>Age: {age}</h4>
-                <h4>Email: {email}</h4>
-                <h5>Bio: {bio}</h5>
-              </Grid.Column>
+                        <Grid.Row>
+                        <Grid.Column width={3}>
+                            <Image style={{height: '300px'}} circular src={imageLink} />
+                            <div style={{width: '300px'}}>
+                                <Popup open={this.state.open} onClose={!this.state.open} trigger={button} position="right center">
+                                    <div style={{ width: '250px', height: '450px'}}>
+                                        <Form onSubmit={this.handleSubmit} style={{width: '250px', height: '400px'}}>
+                                            <label name='username'>Username</label>
+                                            <input onChange={this.handleChange} type="text" name="username" value={this.state.username}></input>
+                                            <label>Email</label>
+                                            <input onChange={this.handleChange} type="text" name="email" value={this.state.email}></input>
+                                            <label>Bio</label>
+                                            <TextArea style={{height: '200px'}} onChange={this.handleChange} name="bio" value={this.state.bio}/>
+                                            <input
+                                                type="file"
+                                                accept="image/jpeg"
+                                                onChange={this.handleFileUpload}
+                                            />
+                                            <Button type='submit'>Update</Button>
+                                        </Form>
+                                    </div>
+                                </Popup>
+                            </div>
+                        <h3>Username: {username}</h3>
+                        <h4>Name: {fname} {lname}</h4>
+                        <h4>Age: {age}</h4>
+                        <h4>Email: {email}</h4>
+                        <h5>Bio: {bio}</h5>
+                    </Grid.Column>
               <Grid.Column width={10}>
                 <div>
                     {tabs()}
@@ -242,9 +240,9 @@ state = {
 
 const mapStateToProps = (state) => {
     return {
-        audio: state.audio,
-        toggle: state.audioToggle,
-        controls: state.audioControls,
+        // audio: state.audio,
+        // toggle: state.audioToggle,
+        // controls: state.audioControls,
         user: state.user,
         auth: state.auth
     }

@@ -11,7 +11,6 @@ const collabTracksReducer = (state=initialState, action) => {
             const collabTracks = state.filter(track => track.id !== parseInt(action.payload.id))
             return collabTracks
         case 'SELECT_AUDIO':
-            // debugger
             if(action.payload.collab_tracks){
                 return state
             }

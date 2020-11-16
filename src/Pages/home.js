@@ -47,15 +47,15 @@ class Explore extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        audio: state.audio,
-        toggle: state.audioToggle,
-        controls: state.audioControls
-    }
-}
+// const mapStateToProps = (state) => {
+//     return {
+//         // audio: state.audio,
+//         // toggle: state.audioToggle,
+//         // controls: state.audioControls
+//     }
+// }
 const mapDispatchToProps = {
     currentUser
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Explore)
+export default connect(null, mapDispatchToProps)(Explore)

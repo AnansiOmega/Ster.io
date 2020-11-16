@@ -90,7 +90,7 @@ handleSubmit = (e) => {
                 error={this.renderErrors().includes('Password') ? "Password can't be blank" : false }
                 fluid
                 label='Password'
-                type='text'
+                type='password'
                 name='password'
                 value={this.state.password}
                 onChange={this.handleChange}
@@ -137,27 +137,6 @@ handleSubmit = (e) => {
                 value={this.state.bio}
                 onChange={this.handleChange}
             />
-            {/* <Form
-                error={this.state.errors.includes('username') ? this.state.errors['username'] : false }
-                label='Image Upload'
-                fluid
-                type='file'
-                accept='image/jpeg'
-                onChange={this.handleFileUpload}
-            /> */}
-                {/* <input onChange={this.handleChange} type="text" name="username" value={this.state.username}></input> */}
-                {/* <label>Password</label> */}
-                {/* <input onChange={this.handleChange} type="text" name="password" value={this.state.password}></input> */}
-                {/* <label>First Name</label> */}
-                {/* <input onChange={this.handleChange} type="text" name="fname" value={this.state.fname}></input> */}
-                {/* <label>Last Name</label> */}
-                {/* <input onChange={this.handleChange} type="text" name="lname" value={this.state.lname}></input> */}
-                {/* <label>Age</label> */}
-                {/* <input onChange={this.handleChange} type="number" name="age" value={this.state.age}></input> */}
-                {/* <label>Email</label> */}
-                {/* <input onChange={this.handleChange} type="text" name="email" value={this.state.email}></input> */}
-                {/* <label>Bio</label> */}
-                {/* <TextArea onChange={this.handleChange} name="bio" value={this.state.bio}/> */}
                 <label>Profile Image</label>
                 <input
                         type="file"

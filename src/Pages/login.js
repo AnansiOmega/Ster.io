@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom'
 
 class Login extends React.Component{
 state = {
-    username: 'Iggs',
-    password: '123',
-    error: null
+    username: '',
+    password: '',
+    error: []
 }
 
 
@@ -53,7 +53,7 @@ handleSubmit = (e) => {
                 <label name='username'>Username:</label>
                 <input onChange={this.handleChange} type="text" name="username" value={this.state.username}></input>
                 <label>Password:</label>
-                <input onChange={this.handleChange} type="text" name="password" value={this.state.password}></input>
+                <input onChange={this.handleChange} type="password" name="password" value={this.state.password}></input>
                 <Button type='submit'>Login</Button>
                 <Link to='/signup'>
                 <Button>Sign up</Button>

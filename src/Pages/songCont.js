@@ -69,8 +69,8 @@ const mapStateToProps = (state) => {
     return {
         tracks: state.collabTracks,
         songs: state.songs,
-        audio: state.audio,
-        toggle: state.audioToggle
+        // audio: state.audio,
+        // toggle: state.audioToggle
     }
 }
 

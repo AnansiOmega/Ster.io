@@ -2,8 +2,6 @@
     display: inline-block;
     width: 33%;
     font-size: 20px;
-    /* text-align: center; */
-    /* height: 50%; */
     position: relative;
     margin-left: 4px;
 }
@@ -18,8 +16,6 @@
     box-shadow: 0 0 3px rgba(0,0,0,.16);
     border-radius: 5px;
 }
-
-
 
 .waveform {
      position: unset !important;
@@ -39,6 +35,35 @@ div.item.song-collab-track {
     margin-top: 60px;
 }
 
+button.ui.circular.button {
+    background-color: rgba(0,166,124,0.5);
+}
+
+div.ui.menu {
+    background-color: rgba(0,166,124,0.5);
+}
+
+a div.content  {
+    color:  rgb(20, 90, 75);
+    font-size: large;
+}
+
+a p {
+    color:  rgb(20, 90, 75);
+    font-size: small;
+}
+
+ div.ui.bottom.attached.segment.active.tab div.list-header {
+    font-size: xx-large;
+}
+
+div.col div.content {
+    font-size: medium;
+}
+
+div.col div.header {
+    font-size: medium;
+}
 /* dotted;}
 p.dashed {border-style: dashed;}
 p.solid {border-style: solid;}

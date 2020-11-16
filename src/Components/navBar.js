@@ -5,40 +5,42 @@ import { connect } from 'react-redux'
 import { logoutUser } from '../Actions/auth'
 
 
-class NavBar extends React.Component {
+const NavBar = (props) => {
+  
+  const handleLogout = () => {
+      localStorage.removeItem('myToken')
+      props.logoutUser()
+  }
 
-  handleLogout = () => {
-    localStorage.removeItem('myToken')
-    this.props.logoutUser()
+  const link = `/users/${props.auth.id}`
+    return(
+        <Menu>
+          <Link to='/home'>
+            <Menu.Item header>Ster.io</Menu.Item>
+          </Link>
+        <Link to='/login'>
+          <Menu.Item
+            name='logout'
+            onClick={handleLogout}
+          />
+        </Link>
+        <Link to='/home/upload'>
+          <Menu.Item
+            name='Upload'
+          />
+        </Link>
+        <Link to={link}>
+          <Menu.Item
+          name='My Profile'
+          />
+        </Link>
+      </Menu>
+    )
 }
 
-    render(){
-      const link = `/users/${this.props.auth.id}`
-        return(
-            <Menu>
-              <Link to='/home'>
-                <Menu.Item header>Ster.io</Menu.Item>
-              </Link>
-            <Link to='/login'>
-              <Menu.Item
-                name='logout'
-                onClick={this.handleLogout}
-              />
-            </Link>
-            <Link to='/home/upload'>
-              <Menu.Item
-                name='Upload'
-              />
-            </Link>
-            <Link to={link}>
-              <Menu.Item
-              name='My Profile'
-              />
-            </Link>
-          </Menu>
-        )
-    }
-}
+//     render(){
+//     }
+// }
 
 const mapStateToProps = (state) => {
   return {

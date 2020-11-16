@@ -17,20 +17,6 @@ const userReducer = (state=initialState, action) => {
                     });
                 }
             }
-            const uniqTracks = [];
-            const trackMap = new Map();
-            for (const item of action.payload.collab_tracks) {
-                if(!trackMap.has(item.id)){
-                    trackMap.set(item.id, true);
-                    uniqTracks.push({
-                        id: item.id,
-                        title: item.title,
-                        genre: item.genre,
-                        track: item.track,
-                        instrument: item.instrument
-                    });
-                }
-            }
             const userInfo = {
                 ...action.payload,
                 songs: uniqSongs
@@ -64,7 +50,7 @@ const userReducer = (state=initialState, action) => {
                 }
             })
 
-        let newUserInfo =  {...state, collab_tracks, songs: songs.filter(song => song) }
+        let newUserInfo =  {...state, collab_tracks, songs: songs.filter(song => song)}
         return newUserInfo
         case 'DELETE_ASSOCIATION_SUCCESS':
             let updatedSongs = state.songs.map(song => {

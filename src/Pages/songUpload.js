@@ -83,7 +83,6 @@ class SongUpload extends React.Component {
         return(
             <div>
             <div>
-                {/* {this.renderTrack()} */}
                 <TrackCard track={this.props.track[0]} className={className}/>
             </div>
             <Form className='form' onSubmit={this.handleSubmit}>
@@ -114,23 +113,13 @@ class SongUpload extends React.Component {
                 value={this.state.instrument}
                 onChange={this.handleChange}
             />
-                {/* <Form.Field>
-                    <label>Title</label>
-                    <input onChange={this.handleChange} type="text" name="title" value={this.state.title}/>
-                </Form.Field>
-                <Form.Field>
-                    <label>Genre</label>
-                    <input onChange={this.handleChange} type="text" name="genre" value={this.state.genre}/>
-                    <label>Instrument</label>
-                    <input onChange={this.handleChange} type="text" name="instrument" value={this.state.instrument}/> */}
-                    {this.renderErrors().includes('Track') ? <h4 style={{color: 'red'}}>Track cannot be empty</h4> : null }
-                    <input
-                        type="file"
-                        accept=".mp3,audio/*"
-                        onChange={this.handleFileUpload}
-                        />
-                {/* </Form.Field> */}
-                <Button type='submit'>Submit</Button>
+            {this.renderErrors().includes('Track') ? <h4 style={{color: 'red'}}>Track cannot be empty</h4> : null }
+            <input
+                type="file"
+                accept=".mp3,audio/*"
+                onChange={this.handleFileUpload}
+            />
+            <Button type='submit'>Submit</Button>
             </Form>
         </div>
         )

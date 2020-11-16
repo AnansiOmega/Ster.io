@@ -5,28 +5,27 @@ import { connect } from 'react-redux'
 import { selectAudio, toggleAudio, skipBackward } from '../Actions/audio'
 
 
-class TrackCard extends React.Component {
-
-render(){
-  const deleteButton = this.props.handleDelete && this.props.track.user.id === this.props.auth.id ? <Button onClick={() => this.props.handleDelete(this.props.track)} circular icon='delete' style={{float: 'right'}}></Button> : null
-  const uploadSongLink = `/home/songUpload/${this.props.track.id}`
-  const myStyle = this.props.track.id === this.props.selectedTrack ? 'rgba(0,166,124,0.5)' : null
-  const userProfileLink = `/users/${this.props.track.user.id}`
-  let className = this.props.className || null
+const TrackCard = (props) => {
+  
+  const deleteButton = props.handleDelete && props.track.user.id === props.auth.id ? <Button onClick={() => props.handleDelete(props.track)} circular icon='delete' style={{float: 'right'}}></Button> : null
+  const uploadSongLink = `/home/songUpload/${props.track.id}`
+  const myStyle = props.track.id === props.selectedTrack ? 'rgba(0,166,124,0.5)' : null
+  const userProfileLink = `/users/${props.track.user.id}`
+  let className = props.className || null
   return(
-    <List.Item className={className} onClick={() => this.props.selectAudio(this.props.track)} style={{ backgroundColor: myStyle }}>
+    <List.Item className={className} onClick={() => props.selectAudio(props.track)} style={{ backgroundColor: myStyle }}>
       <div className="col" style={{ display: 'flex', justifyContent: 'flex-start', flexBasis: '100%' }}>
-        <List.Content style={{ float: 'left' }} align='left'>{this.props.track.title}</List.Content>
+        <List.Content style={{ float: 'left' }} align='left'>{props.track.title}</List.Content>
       </div>
       <div className="col" style={{ display: 'flex', justifyContent: 'center', flexBasis: '100%', float: 'middle' }}>
-        <div style={{ textAlign: 'center' }}>{this.props.track.genre}</div>
+        <div style={{ textAlign: 'center' }}>{props.track.genre}</div>
       </div>
       <Link to={userProfileLink}>
-      <List.Content style={{ float: 'right' }}>{this.props.track.instrument}: {this.props.track.user.username}</List.Content>
+      <List.Content style={{ float: 'right' }}>{props.track.instrument}: {props.track.user.username}</List.Content>
       </Link>
       <List.Content style={{ float: 'left' }} align='left'>
-        <Button onClick={this.props.skipBackward} circular icon='stop'></Button>
-        <Button style={{ marginRight: '20px' }} circular icon='play' onClick={this.props.toggleAudio}></Button>
+        <Button onClick={props.skipBackward} circular icon='stop'></Button>
+        <Button style={{ marginRight: '20px' }} circular icon='play' onClick={props.toggleAudio}></Button>
       </List.Content>
       <List.Content style={{ float: 'middle', marginRight: '85px' }} align='middle'>
         <Link to={uploadSongLink}>
@@ -36,8 +35,40 @@ render(){
       </List.Content>
     </List.Item>
       )
-    }
-  }
+  // )
+}
+
+// render(){
+//   const deleteButton = this.props.handleDelete && this.props.track.user.id === this.props.auth.id ? <Button onClick={() => this.props.handleDelete(this.props.track)} circular icon='delete' style={{float: 'right'}}></Button> : null
+//   const uploadSongLink = `/home/songUpload/${this.props.track.id}`
+//   const myStyle = this.props.track.id === this.props.selectedTrack ? 'rgba(0,166,124,0.5)' : null
+//   const userProfileLink = `/users/${this.props.track.user.id}`
+//   let className = this.props.className || null
+//   return(
+//     <List.Item className={className} onClick={() => this.props.selectAudio(this.props.track)} style={{ backgroundColor: myStyle }}>
+//       <div className="col" style={{ display: 'flex', justifyContent: 'flex-start', flexBasis: '100%' }}>
+//         <List.Content style={{ float: 'left' }} align='left'>{this.props.track.title}</List.Content>
+//       </div>
+//       <div className="col" style={{ display: 'flex', justifyContent: 'center', flexBasis: '100%', float: 'middle' }}>
+//         <div style={{ textAlign: 'center' }}>{this.props.track.genre}</div>
+//       </div>
+//       <Link to={userProfileLink}>
+//       <List.Content style={{ float: 'right' }}>{this.props.track.instrument}: {this.props.track.user.username}</List.Content>
+//       </Link>
+//       <List.Content style={{ float: 'left' }} align='left'>
+//         <Button onClick={this.props.skipBackward} circular icon='stop'></Button>
+//         <Button style={{ marginRight: '20px' }} circular icon='play' onClick={this.props.toggleAudio}></Button>
+//       </List.Content>
+//       <List.Content style={{ float: 'middle', marginRight: '85px' }} align='middle'>
+//         <Link to={uploadSongLink}>
+//           <Button circular >Collaborate</Button>
+//         </Link>
+//         {deleteButton}
+//       </List.Content>
+//     </List.Item>
+//       )
+//     }
+//   }
 
   const mapStateToProps = (state) => {
     return {
