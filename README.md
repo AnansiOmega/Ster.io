@@ -9,7 +9,8 @@ ________________________________________________________
 3. Cd into sterio-frontend (case sensitive)
 4. Open with code .
 6. Run npm i && npm start
-7. Make a profile and have fun!
+7. Make sure to have the Ster.ioBackend setup as well.(https://github.com/AnansiOmega/Ster.ioBackend)
+8. Make a profile and have fun!
 
 ________________________________________________________
 
