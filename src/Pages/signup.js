@@ -42,7 +42,7 @@ handleSubmit = (e) => {
         )
     }
 
-    axios.post("http://localhost:3000/users", formData)
+    axios.post("https://steriobackened.herokuapp.com/users", formData)
     .then(data => {
         if(data.data.errors){
             this.setState({
@@ -50,7 +50,7 @@ handleSubmit = (e) => {
             })
         return
         }
-         axios.post('http://localhost:3000/auth', formData)
+         axios.post('https://steriobackened.herokuapp.com/auth', formData)
             .then(data => {
                 if(data.data.error){
                     this.setState({

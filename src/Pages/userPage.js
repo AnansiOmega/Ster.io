@@ -170,6 +170,7 @@ state = {
 
 
             render(){
+                debugger
                 const panes = [
                     { menuItem: 'Tracks', render: () => <Tab.Pane>
                         <div>

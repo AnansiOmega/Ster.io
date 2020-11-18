@@ -11,12 +11,12 @@ import { List } from 'semantic-ui-react'
 class SongCont extends React.Component {
 
     componentDidMount(){
-        fetch('http://localhost:3000/collab_tracks')
+        fetch('https://steriobackened.herokuapp.com/collab_tracks')
         .then(resp => resp.json())
         .then(tracks => {
             this.props.fetchCollabsSuccess(tracks)
         })
-        fetch('http://localhost:3000/songs')
+        fetch('https://steriobackened.herokuapp.com/songs')
         .then(resp => resp.json())
         .then(songs => {
             this.props.fetchSongsSuccess(songs)
