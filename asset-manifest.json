@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Ster.ioFrontEnd/static/css/main.fd8c8977.chunk.css",
-    "main.js": "/Ster.ioFrontEnd/static/js/main.6ce49203.chunk.js",
-    "main.js.map": "/Ster.ioFrontEnd/static/js/main.6ce49203.chunk.js.map",
+    "main.js": "/Ster.ioFrontEnd/static/js/main.f4a806b4.chunk.js",
+    "main.js.map": "/Ster.ioFrontEnd/static/js/main.f4a806b4.chunk.js.map",
     "runtime-main.js": "/Ster.ioFrontEnd/static/js/runtime-main.f24b54c2.js",
     "runtime-main.js.map": "/Ster.ioFrontEnd/static/js/runtime-main.f24b54c2.js.map",
     "static/css/2.c415c3d3.chunk.css": "/Ster.ioFrontEnd/static/css/2.c415c3d3.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.c415c3d3.chunk.css",
     "static/js/2.7407a6d5.chunk.js",
     "static/css/main.fd8c8977.chunk.css",
-    "static/js/main.6ce49203.chunk.js"
+    "static/js/main.f4a806b4.chunk.js"
   ]
 }
