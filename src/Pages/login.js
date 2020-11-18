@@ -29,7 +29,7 @@ handleSubmit = (e) => {
         body: JSON.stringify(this.state)
     }
 
-    fetch('http://localhost:3000/auth', reqObj)
+    fetch('https://steriobackened.herokuapp.com/auth', reqObj)
     .then(resp => resp.json())
     .then(user => {
         if(user.error){
