@@ -21,7 +21,7 @@ class Explore extends React.Component {
                     'Authorization': `Bearer ${token}`
                 }
             }
-            fetch('http://localhost:3000/current_user', reqObj)
+            fetch('https://serene-garden-00541.herokuapp.com/current_user', reqObj)
                 .then(resp => resp.json())
                 .then(user => {
                     if (user.error) {
