@@ -19,7 +19,7 @@ class App extends React.Component {
 
   renderAudioPlayers = () => {
     return this.props.audio.map(link => {
-      let audioLink = `http://localhost:3000${link}`
+      let audioLink = `https://serene-garden-00541.herokuapp.com${link}`
       let options = { waveColor: 'rgba(0,166,124,0.5)' }
       return <AudioPlayer audioFile={audioLink} playing={this.props.toggle} reset={this.props.controls} options={options} squash={this.state.squash}/>
       })
