@@ -28,7 +28,7 @@ class Upload extends React.Component {
             )
         }
         
-        axios.post("http://localhost:3000/collab_tracks", formData)
+        axios.post("https://serene-garden-00541.herokuapp.com/collab_tracks", formData)
         .then(data => {
             if(data.data.errors){
                 this.setState({

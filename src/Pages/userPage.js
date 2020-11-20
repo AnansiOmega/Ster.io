@@ -148,7 +148,7 @@ state = {
         }
         
 
-        axios.patch(`http://localhost:3000/users/${this.props.auth.id}`, formData)
+        axios.patch(`https://serene-garden-00541.herokuapp.com/users/${this.props.auth.id}`, formData)
         .then(data => {
             if(data.data.errors){
                 this.setState({
@@ -196,7 +196,7 @@ state = {
                   const { fname, lname, age, username, email, bio } = this.props.user
                   const tabs = () => <Tab panes={panes} />
                   const button = this.props.auth.id === this.props.user.id ? <button><Icon name='edit'/></button> : null
-                  const imageLink =  this.props.user.image ? `http://localhost:3000${this.props.user.image}` : DefaultProfilePic
+                  const imageLink =  this.props.user.image ? `https://serene-garden-00541.herokuapp.com${this.props.user.image}` : DefaultProfilePic
                   return(
                       <Grid celled='internally'>
                         <Grid.Row>

@@ -38,7 +38,7 @@ class SongUpload extends React.Component {
             )
         }
         
-        axios.post("http://localhost:3000/collab_tracks", formData)
+        axios.post("https://serene-garden-00541.herokuapp.com/collab_tracks", formData)
         .then(data => {
             if(data.data.errors){
                 this.setState({
@@ -48,7 +48,7 @@ class SongUpload extends React.Component {
         }
             formData.append('collab_track_id', data.data.id)
 
-            axios.post("http://localhost:3000/songs", formData)
+            axios.post("https://serene-garden-00541.herokuapp.com/songs", formData)
             .then(data => {
                 this.props.history.push('/home')
             })
