@@ -29,7 +29,7 @@ handleSubmit = (e) => {
         body: JSON.stringify(this.state)
     }
 
-    fetch('https://steriobackened.herokuapp.com/auth', reqObj)
+    fetch('https://serene-garden-00541.herokuapp.com/auth', reqObj)
     .then(resp => resp.json())
     .then(user => {
         if(user.error){

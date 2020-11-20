@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://anansiomega.github.io/Ster.ioFrontEnd/",
-  "proxy": "https://steriobackend.herokuapp.com/",
+  "proxy": "https://serene-garden-00541.herokuapp.com/",
   "dependencies": {
     "@rails/activestorage": "^6.0.3-4",
     "@testing-library/jest-dom": "^5.11.4",
