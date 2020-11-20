@@ -36,7 +36,7 @@ state = {
                     'Authorization': `Bearer ${token}`
                 }
             }
-            fetch('http://localhost:3000/current_user', reqObj)
+            fetch('https://serene-garden-00541.herokuapp.com/current_user', reqObj)
                 .then(resp => resp.json())
                 .then(user => {
                     if (user.error) {
@@ -44,7 +44,7 @@ state = {
                     } else {
                         this.props.currentUser(user)
                         const userPageId = this.props.match.params.id
-                        fetch(`http://localhost:3000/users/${userPageId}`)
+                        fetch(`https://serene-garden-00541.herokuapp.com/users/${userPageId}`)
                         .then(resp => resp.json())
                         .then(user => {
                             this.props.fetchedUser(user)
@@ -63,7 +63,7 @@ state = {
     componentDidUpdate(prevProps){
         if(this.props.match.url !== prevProps.match.url){
             const userPageId = this.props.match.params.id
-            fetch(`http://localhost:3000/users/${userPageId}`)
+            fetch(`https://serene-garden-00541.herokuapp.com/users/${userPageId}`)
             .then(resp => resp.json())
             .then(user => {
                 this.props.fetchedUser(user)
@@ -80,7 +80,7 @@ state = {
     handleDelete = (track) => {
         let alert = track.songs.length === 1 ? `is 1 song` : `are ${this.props.user.songs.length} songs` 
         if(window.confirm(`There ${alert} using this track, are you you sure you want to delete this track?`)){
-            fetch(`http://localhost:3000/collab_tracks/${track.id}`, {method: 'DELETE'})
+            fetch(`https://serene-garden-00541.herokuapp.com/collab_tracks/${track.id}`, {method: 'DELETE'})
             .then(resp => resp.json())
             .then(collabTrack => {
               this.props.deleteCollabSuccess(collabTrack)
@@ -96,7 +96,7 @@ state = {
             },
             body: JSON.stringify({collab_track_id, song_id})
         }
-        fetch('http://localhost:3000/song_collab', reqObj)
+        fetch('https://serene-garden-00541.herokuapp.com/song_collab', reqObj)
         .then(resp => resp.json())
         .then(data => {
             this.props.deleteAssociationSuccess(data)
