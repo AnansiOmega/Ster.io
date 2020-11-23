@@ -18,7 +18,7 @@ const NavBar = (props) => {
           <Link to='/home'>
             <Menu.Item header>Ster.io</Menu.Item>
           </Link>
-        <Link to='/login'>
+        <Link to='/Ster.io'>
           <Menu.Item
             name='logout'
             onClick={handleLogout}
@@ -38,9 +38,6 @@ const NavBar = (props) => {
     )
 }
 
-//     render(){
-//     }
-// }
 
 const mapStateToProps = (state) => {
   return {
