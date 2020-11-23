@@ -3,7 +3,7 @@
   "name": "sterio-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://anansiomega.github.io/Ster.ioFrontEnd/",
+  "homepage": "https://anansiomega.github.io/login/",
   "proxy": "https://serene-garden-00541.herokuapp.com/",
   "dependencies": {
     "@rails/activestorage": "^6.0.3-4",
