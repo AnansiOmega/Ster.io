@@ -13,7 +13,7 @@ class Explore extends React.Component {
     componentDidMount() {
         const token = localStorage.getItem('myToken')
         if (!token) {
-            this.props.history.push('/login')
+            this.props.history.push('/Ster.io')
         } else {
             const reqObj = {
                 method: 'GET',
@@ -25,7 +25,7 @@ class Explore extends React.Component {
                 .then(resp => resp.json())
                 .then(user => {
                     if (user.error) {
-                        this.props.history.push('/login')
+                        this.props.history.push('/Ster.io')
                     } else {
                         this.props.currentUser(user)
                     }

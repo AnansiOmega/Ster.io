@@ -42,7 +42,7 @@ class App extends React.Component {
         </div>
         <Button style={{float: 'right', top: '100px'}} icon={icon} circular onClick={this.squashToggle}></Button>
         <Switch>
-          <Route exact path='/login' component={Login} />
+          <Route exact path='/Ster.io' component={Login} />
           <Route exact path='/signup' component={Signup} />
           <Route path='/home' component={Home} />
           <Route path='/users/:id' component={UserHomePage} />
