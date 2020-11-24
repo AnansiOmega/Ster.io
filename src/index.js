@@ -16,7 +16,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router basename='/Ster.io'>
+    <Router>
       <React.StrictMode>
       <script src="https://unpkg.com/wavesurfer.js"></script>
         <App />
