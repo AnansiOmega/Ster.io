@@ -18,7 +18,7 @@ const NavBar = (props) => {
           <Link to='/home'>
             <Menu.Item header>Ster.io</Menu.Item>
           </Link>
-        <Link to='/Ster.io'>
+        <Link to='/'>
           <Menu.Item
             name='logout'
             onClick={handleLogout}
