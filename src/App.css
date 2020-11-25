@@ -64,14 +64,16 @@ div.col div.content {
 div.col div.header {
     font-size: medium;
 }
-/* dotted;}
-p.dashed {border-style: dashed;}
-p.solid {border-style: solid;}
-p.double {border-style: double;}
-p.groove {border-style: groove;}
-p.ridge {border-style: ridge;}
-p.inset {border-style: inset;}
-p.outset {border-style: outset;}
-p.none {border-style: none;}
-p.hidden {border-style: hidden;}
-p.mix {border-style: dotted dashed solid double;} */
+/* 
+div.ui.tiny.animated.celled.list {
+    background-color: rgb(50,50,50);
+}
+
+
+div.ui.bottom.attached.segment.active.tab {
+    background-color: rgb(100,100,100);
+} */
+
+/* .App {
+    background-image: url('/Users/anansi/Development/code/Mod5/sterio-frontend/src/images/ster.io-background.jpg');
+} */

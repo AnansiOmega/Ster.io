@@ -39,6 +39,7 @@ const songCard = (props) => {
   const songCollabLink = `/home/songCollab/${props.song.id}`
   const myStyle = props.song.id === props.selectedTrack ? 'rgba(0,166,124,0.5)' : null
   const className = props.className || null
+  const margin = props.handleDeleteAssociation ? { marginLeft: '350px'} : { marginLeft: '630px'}
   return(
   <List.Item className={className} onClick={() => props.selectAudio(props.song)} style={{backgroundColor: myStyle}}>
     <div className="col" style={{display: 'flex', justifyContent: 'flex-start', flexBasis: '100%'}}>
@@ -50,7 +51,7 @@ const songCard = (props) => {
       <Button onClick={props.skipBackward } circular icon='stop'></Button>
       <Button icon='play' circular onClick={props.toggleAudio}></Button>
     </List.Header>
-    <List.Content style={{float: 'middle', marginRight:'85px'}} align='middle'>
+    <List.Content style={margin}>
       <Link to={songCollabLink}>
         <Button circular >Collaborate</Button>
       </Link>

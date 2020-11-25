@@ -12,6 +12,7 @@ const TrackCard = (props) => {
   const myStyle = props.track.id === props.selectedTrack ? 'rgba(0,166,124,0.5)' : null
   const userProfileLink = `/users/${props.track.user.id}`
   let className = props.className || null
+  const margin = props.handleDelete ? { marginLeft: '350px'} : { marginLeft: '630px'}
   return(
     <List.Item className={className} onClick={() => props.selectAudio(props.track)} style={{ backgroundColor: myStyle }}>
       <div className="col" style={{ display: 'flex', justifyContent: 'flex-start', flexBasis: '100%' }}>
@@ -27,7 +28,7 @@ const TrackCard = (props) => {
         <Button onClick={props.skipBackward} circular icon='stop'></Button>
         <Button style={{ marginRight: '20px' }} circular icon='play' onClick={props.toggleAudio}></Button>
       </List.Content>
-      <List.Content style={{ float: 'middle', marginRight: '85px' }} align='middle'>
+      <List.Content style={margin}>
         <Link to={uploadSongLink}>
           <Button circular >Collaborate</Button>
         </Link>

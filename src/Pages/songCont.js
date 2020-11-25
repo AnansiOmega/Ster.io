@@ -58,7 +58,7 @@ const panes = [
   ]
   const tabs = () => <Tab panes={panes} />
         return(
-            <div>
+            <div className='tabs'>
                 {tabs()}
             </div>
         )
